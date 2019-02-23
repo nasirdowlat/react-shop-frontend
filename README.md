@@ -1,3 +1,3 @@
-# Advanced-React
+# React-Shop
 
 frontend
