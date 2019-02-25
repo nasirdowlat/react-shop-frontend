@@ -2,10 +2,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import Title from './styles/Title';
+
+import DeleteItem from './DeleteItem';
 import ItemStyles from './styles/ItemStyles';
-import PriceTag from './styles/PriceTag';
 import formatMoney from '../lib/formatMoney';
+import PriceTag from './styles/PriceTag';
+import Title from './styles/Title';
 
 export default class Item extends Component {
   static propTypes = {
@@ -17,7 +19,6 @@ export default class Item extends Component {
     return (
       <ItemStyles>
         {item.image && <img src={item.image} alt={item.title} />}
-
         <Title>
           <Link
             href={{
@@ -41,7 +42,7 @@ export default class Item extends Component {
             <a>Edit ✏️</a>
           </Link>
           <button>Add to card</button>
-          <button>Delete this item</button>
+          <DeleteItem id={item.id}>Delete this item</DeleteItem>
         </div>
       </ItemStyles>
     );
