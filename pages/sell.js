@@ -1,5 +1,4 @@
-import Link from 'next/link';
-
+/* eslint-disable no-unused-vars */
 import CreateItem from '../components/CreateItem';
 
 const Sell = props => (
