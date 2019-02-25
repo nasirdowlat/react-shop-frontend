@@ -5,7 +5,6 @@ import gql from 'graphql-tag';
 
 import Error from './ErrorMessage';
 import Form from './styles/Form';
-import formatMoney from '../lib/formatMoney';
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -32,7 +31,6 @@ class CreateItem extends Component {
     title: '',
     description: '',
     image: '',
-    largeImage: '',
     price: 0,
   };
 
@@ -59,7 +57,6 @@ class CreateItem extends Component {
     console.log(file);
     this.setState({
       image: file.secure_url,
-      largeImage: file.eager[0].secure_url,
     });
   };
 

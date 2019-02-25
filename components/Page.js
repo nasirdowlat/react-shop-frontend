@@ -55,12 +55,14 @@ injectGlobal`
 
 class Page extends Component {
   render() {
+    // eslint-disable-next-line react/prop-types
+    const { children } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <StyledPage>
           <Meta />
           <Header />
-          <Inner>{this.props.children}</Inner>
+          <Inner>{children}</Inner>
         </StyledPage>
       </ThemeProvider>
     );
