@@ -71,20 +71,17 @@ class UpdateItem extends Component {
           id,
         }}
       >
-        {({ data, loadingQuery }) => {
-          if (loadingQuery) return <p>Loading...</p>;
+        {({ data, loading }) => {
+          if (loading) return <p>Loading...</p>;
           if (!data.item) return <p>No item found for id</p>;
           return (
             <Mutation mutation={UPDATE_ITEM_MUTATION} variables={this.state}>
-              {(updateItem, { loadingMutation, error }) => (
+              {(updateItem, { loading, error }) => (
                 <Form
                   onSubmit={async e => this.handleUpdateItem(e, updateItem)}
                 >
                   <Error error={error} />
-                  <fieldset
-                    disabled={loadingMutation}
-                    aria-busy={loadingMutation}
-                  >
+                  <fieldset disabled={loading} aria-busy={loading}>
                     <label htmlFor="title">
                       Title
                       <input
@@ -127,7 +124,7 @@ class UpdateItem extends Component {
                       />
                     </label>
                     <button type="submit">
-                      Sav{loadingMutation ? 'ing' : 'e'}
+                      Sav{loading ? 'ing' : 'e'} Changes
                     </button>
                   </fieldset>
                 </Form>
