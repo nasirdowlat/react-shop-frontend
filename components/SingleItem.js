@@ -37,6 +37,7 @@ const SINGLE_ITEM_QUERY = gql`
 `;
 class SingleItem extends Component {
   render() {
+    // eslint-disable-next-line react/prop-types
     const { id } = this.props;
     return (
       <Query

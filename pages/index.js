@@ -1,9 +1,10 @@
 import Items from '../components/Items';
 
-const Home = () => (
+// eslint-disable-next-line react/prop-types
+const Home = ({ query }) => (
   <div>
     <p>Home!</p>
-    <Items />
+    <Items page={parseFloat(query.page) || 1} />
   </div>
 );
 
