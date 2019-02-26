@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import SignupForm from '../components/SignupForm';
+import SigninForm from '../components/SigninForm';
+import RequestResetForm from '../components/RequestResetForm';
 
 const Columns = styled.div`
   display: grid;
@@ -9,8 +11,8 @@ const Columns = styled.div`
 const Signup = props => (
   <Columns>
     <SignupForm />
-    <SignupForm />
-    <SignupForm />
+    <SigninForm />
+    <RequestResetForm />
   </Columns>
 );
 export default Signup;

@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+
 import Form from './styles/Form';
 import Error from './ErrorMessage';
 import { CURRENT_USER_QUERY } from './User';
 
-const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION(
-    $email: String!
-    $name: String!
-    $password: String!
-  ) {
-    signup(email: $email, name: $name, password: $password) {
+const SIGNIN_MUTATION = gql`
+  mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
       id
       email
-      name
     }
   }
 `;
 
-class SignupForm extends Component {
+class SigninForm extends Component {
   state = {
-    name: '',
     password: '',
     email: '',
   };
@@ -31,24 +26,24 @@ class SignupForm extends Component {
   };
 
   render() {
-    const { email, name, password } = this.state;
+    const { email, password } = this.state;
     return (
       <Mutation
-        mutation={SIGNUP_MUTATION}
+        mutation={SIGNIN_MUTATION}
         variables={this.state}
         refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
-        {(signup, { loading, error }) => (
+        {(signin, { loading, error }) => (
           <Form
             method="post"
             onSubmit={async e => {
               e.preventDefault();
-              await signup();
-              this.setState({ name: '', email: '', password: '' });
+              await signin();
+              this.setState({ email: '', password: '' });
             }}
           >
             <fieldset disabled={loading} aria-busy={loading}>
-              <h2>Sign up for an account</h2>
+              <h2>Sign in to your account</h2>
               {error && <Error error={error} />}
               <label htmlFor="email">
                 Email
@@ -57,17 +52,6 @@ class SignupForm extends Component {
                   name="email"
                   placeholder="email"
                   value={email}
-                  onChange={this._saveToState}
-                  required
-                />
-              </label>
-              <label htmlFor="name">
-                Name
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="name"
-                  value={name}
                   onChange={this._saveToState}
                   required
                 />
@@ -83,7 +67,7 @@ class SignupForm extends Component {
                   required
                 />
               </label>
-              <button type="submit">Sign up!</button>
+              <button type="submit">Sign in!</button>
             </fieldset>
           </Form>
         )}
@@ -92,4 +76,4 @@ class SignupForm extends Component {
   }
 }
 
-export default SignupForm;
+export default SigninForm;
