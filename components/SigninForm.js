@@ -31,7 +31,7 @@ class SigninForm extends Component {
       <Mutation
         mutation={SIGNIN_MUTATION}
         variables={this.state}
-        refetchQuerys={[{ query: CURRENT_USER_QUERY }]}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
         {(signin, { loading, error }) => (
           <Form
