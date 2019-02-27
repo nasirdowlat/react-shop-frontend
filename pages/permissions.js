@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import CreateItem from '../components/CreateItem';
 import PleaseSignin from '../components/PleaseSignin';
+import UserPermissions from '../components/UserPermissions';
 
-const Sell = props => (
+const Permissions = props => (
   <div>
     <PleaseSignin>
-      <CreateItem />
+      <UserPermissions />
     </PleaseSignin>
   </div>
 );
 
-export default Sell;
+export default Permissions;
