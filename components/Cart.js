@@ -44,8 +44,8 @@ const Cart = () => (
                     </p>
                   </header>
                   <ul>
-                    {me.cart.map(item => (
-                      <CartItem cartItem={item} />
+                    {me.cart.map((item, index) => (
+                      <CartItem key={index} cartItem={item} />
                     ))}
                   </ul>
 
