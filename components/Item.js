@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
+import AddToCart from './AddToCart';
 import DeleteItem from './DeleteItem';
 import ItemStyles from './styles/ItemStyles';
 import formatMoney from '../lib/formatMoney';
@@ -41,7 +42,7 @@ export default class Item extends Component {
           >
             <a>Edit ✏️</a>
           </Link>
-          <button>Add to cart</button>
+          <AddToCart id={item.id} />
           <DeleteItem id={item.id}>Delete this item</DeleteItem>
         </div>
       </ItemStyles>
