@@ -20,20 +20,23 @@ const CartStylesItem = styled.li`
   }
 `;
 
-const CartItem = ({ cartItem }) => (
-  <CartStylesItem>
-    <img src={cartItem.item.image} width="100" alt={cartItem.item.title} />
-    <div className="cart-item-details">
-      <h3>{cartItem.item.title}</h3>
-      <p>
-        {formatMoney(cartItem.item.price * cartItem.quantity)}
-        {' - '}
-        <em>
-          {cartItem.quantity} &times; {formatMoney(cartItem.item.price)} each
-        </em>
-      </p>
-    </div>
-    <RemoveFromCart id={cartItem.id} />
-  </CartStylesItem>
-);
+const CartItem = ({ cartItem }) => {
+  if (!cartItem.item) return null;
+  return (
+    <CartStylesItem>
+      <img src={cartItem.item.image} width="100" alt={cartItem.item.title} />
+      <div className="cart-item-details">
+        <h3>{cartItem.item.title}</h3>
+        <p>
+          {formatMoney(cartItem.item.price * cartItem.quantity)}
+          {' - '}
+          <em>
+            {cartItem.quantity} &times; {formatMoney(cartItem.item.price)} each
+          </em>
+        </p>
+      </div>
+      <RemoveFromCart id={cartItem.id} />
+    </CartStylesItem>
+  );
+};
 export default CartItem;

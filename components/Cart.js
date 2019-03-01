@@ -1,6 +1,8 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import { adopt } from 'react-adopt';
 import calcTotalPrice from '../lib/calcTotalPrice';
 import formatMoney from '../lib/formatMoney';
 
@@ -23,44 +25,45 @@ const TOGGLE_CART_MUTATION = gql`
   }
 `;
 
+const Composed = adopt({
+  user: ({ render }) => <User>{render}</User>,
+  toggleCart: ({ render }) => (
+    <Mutation mutation={TOGGLE_CART_MUTATION}>{render}</Mutation>
+  ),
+  localState: ({ render }) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>,
+});
+
 const Cart = () => (
-  <User>
-    {({ data: { me } }) => {
+  <Composed>
+    {({ user, toggleCart, localState }) => {
+      const { me } = user.data;
       if (!me) return null;
       return (
-        <Mutation mutation={TOGGLE_CART_MUTATION}>
-          {toggleCart => (
-            <Query query={LOCAL_STATE_QUERY}>
-              {({ data }) => (
-                <CartStyles open={!data.cartOpen}>
-                  <header>
-                    <CloseButton onClick={toggleCart} title="close">
-                      &times;
-                    </CloseButton>
-                    <Supreme>{me.name}'s Cart</Supreme>
-                    <p>
-                      You are {me.cart.length} Item
-                      {me.cart.length === 1 ? '' : 's'} in your cart{' '}
-                    </p>
-                  </header>
-                  <ul>
-                    {me.cart.map((item, index) => (
-                      <CartItem key={index} cartItem={item} />
-                    ))}
-                  </ul>
+        <CartStyles open={!localState.data.cartOpen}>
+          <header>
+            <CloseButton onClick={toggleCart} title="close">
+              &times;
+            </CloseButton>
+            <Supreme>{me.name}'s Cart</Supreme>
+            <p>
+              You are {me.cart.length} Item
+              {me.cart.length === 1 ? '' : 's'} in your cart{' '}
+            </p>
+          </header>
+          <ul>
+            {me.cart.map((item, index) => (
+              <CartItem key={index} cartItem={item} />
+            ))}
+          </ul>
 
-                  <footer>
-                    <p>{formatMoney(calcTotalPrice(me.cart))}</p>
-                    <SickButton>Checkout</SickButton>
-                  </footer>
-                </CartStyles>
-              )}
-            </Query>
-          )}
-        </Mutation>
+          <footer>
+            <p>{formatMoney(calcTotalPrice(me.cart))}</p>
+            <SickButton>Checkout</SickButton>
+          </footer>
+        </CartStyles>
       );
     }}
-  </User>
+  </Composed>
 );
 
 export default Cart;
