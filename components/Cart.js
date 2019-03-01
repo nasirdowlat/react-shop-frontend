@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -25,6 +24,7 @@ const TOGGLE_CART_MUTATION = gql`
   }
 `;
 
+/* eslint-disable */
 const Composed = adopt({
   user: ({ render }) => <User>{render}</User>,
   toggleCart: ({ render }) => (
@@ -32,6 +32,7 @@ const Composed = adopt({
   ),
   localState: ({ render }) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>,
 });
+/* eslint-enable */
 
 const Cart = () => (
   <Composed>
@@ -39,7 +40,7 @@ const Cart = () => (
       const { me } = user.data;
       if (!me) return null;
       return (
-        <CartStyles open={!localState.data.cartOpen}>
+        <CartStyles open={localState.data.cartOpen}>
           <header>
             <CloseButton onClick={toggleCart} title="close">
               &times;
